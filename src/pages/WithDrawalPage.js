@@ -1,26 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const WithDrawalPage = (props) => {
+  const pageName = "탈퇴하기";
+  useEffect(() => {
+    props.onPageName(pageName);
+  });
+  const [check, setCheck] = useState(false);
+  const onCheck = (e) => {
+    if(check !== true) {
+      setCheck(true);
+    } else {
+      setCheck(false);
+    }
+  };
+  useEffect(()=>{
+    if (check) {
+      document.querySelector(".agree_btn").style.background =
+        "url('./img/Circle-ckeck.svg') no-repeat";
+    } else {
+      document.querySelector(".agree_btn").style.background =
+        "url('./img/Circle-check.svg') no-repeat";
+    }
+  },[check])
   return (
-    <div className="contents_wrap">
-      <h2>무버스 서비스를 탈퇴하시겠습니까?</h2>
-      <p>보유 리워드와 정산 현황을 확인하세요</p>
+    <div className="container drawal_wrap">
+      <div className="drawal_header">
+        <h2 className="font-primary">무버스 서비스를 탈퇴하시겠습니까?</h2>
+        <p className="font-content">보유 리워드와 정산 현황을 확인하세요</p>
+      </div>
 
-      <div className="total_reword">
-        <p>보유 리워드</p>
-        <p>{"54,780"}원</p>
-      </div>
-      <div className="parking_gun">
-        <p>주차비 접수 건</p>
-        <p>{"4"}건</p>
-      </div>
-      <div className="pay_by_costomer">
-        <p>내실 돈</p>
-        <p>{"0"}원</p>
-      </div>
-      <div className="thodeck">
-        <p>소득 공제 신고</p>
-        <p>{"필요"}</p>
+      <div className="drawal_content_wrap">
+        <div className="total_reword drawal_content">
+          <p>보유 리워드</p>
+          <p>{"54,780"}원</p>
+        </div>
+        <div className="drawal_content">
+          <p>주차비 접수 건</p>
+          <p>{"4"}건</p>
+        </div>
+        <div className="drawal_content">
+          <p>내실 돈</p>
+          <p>{"0"}원</p>
+        </div>
+        <div className="drawal_content">
+          <p>소득 공제 신고</p>
+          <p>{"필요"}</p>
+        </div>
       </div>
       <div className="warning">
         <ul>
@@ -38,30 +63,46 @@ const WithDrawalPage = (props) => {
           </li>
         </ul>
       </div>
-      <div className="reason">
-        <h3>탈퇴사유를 남겨주세요.</h3>
-        <label>
-          <input type="radio" name="out_reason" id="out_reason1" /> 차량
-          탁송업을 그만둡니다.
-        </label>
-        <label>
-          <input type="radio" name="out_reason" id="out_reason2" /> 다른 탁송
-          서비스를 이용합니다.
-        </label>
-        <label>
-          <input type="radio" name="out_reason" id="out_reason3" /> 운영 가능한
-          콜이 많지 않습니다.
-        </label>
-        <label>
-          <input type="radio" name="out_reason" id="out_reason4" /> 운영 방식이
-          만족스럽지 않습니다.
-        </label>
-        <label>
-          <input type="radio" name="out_reason" id="out_reason5" /> 기타 (클릭
-          시inputText? 왜 아무것도 안써있지 기획서에)
-        </label>
+      <div className="reason font-second">
+        <h3 className="font-primary">탈퇴사유를 남겨주세요.</h3>
+        <div className="reason_radio">
+          <input type="radio" name="out_reason" id="out_reason1" />
+          <label htmlFor="out_reason1">
+            <span className="radio_btn"></span>
+            <span className="radio_txt">차량 탁송업을 그만둡니다.</span>
+          </label>
+        </div>
+        <div className="reason_radio">
+          <input type="radio" name="out_reason" id="out_reason2" />
+          <label htmlFor="out_reason2">
+            <span className="radio_btn"></span>
+            <span className="radio_txt">다른 탁송 서비스를 이용합니다.</span>
+          </label>
+        </div>
+        <div className="reason_radio">
+          <input type="radio" name="out_reason" id="out_reason3" />
+          <label htmlFor="out_reason3">
+            <span className="radio_btn"></span>
+            <span className="radio_txt">운영 가능한 콜이 많지 않습니다.</span>
+          </label>
+        </div>
+        <div className="reason_radio">
+          <input type="radio" name="out_reason" id="out_reason4" />
+          <label htmlFor="out_reason4">
+            <span className="radio_btn"></span>
+            <span className="radio_txt">운영 방식이 만족스럽지 않습니다.</span>
+          </label>
+        </div>
+        <div className="reason_radio">
+          <input type="radio" name="out_reason" id="out_reason5" />
+          <label htmlFor="out_reason5">
+            <span className="radio_btn"></span>
+            <span className="radio_txt">기타</span>
+          </label>
+        </div>
       </div>
-      <div className="keep_user">
+      <div className="keep_userinfo">
+        <h3 className="font-primary">회원정보 보존 안내</h3>
         <ul>
           <li>
             회원정보 보존 세부내용
@@ -72,11 +113,17 @@ const WithDrawalPage = (props) => {
           <li>보존 근거 : 가입 시 동의 한 '이용약관' 제3조 제1항</li>
         </ul>
       </div>
-      <div className="fix_footer">
-        <label>회원정보 보존 기간에 대해 동의합니다. <input type="radio" name="agree" id="agree" /></label>
-        <div>
-            <button>탈퇴하기</button>
-        </div>
+      <div className="agree_check">
+        <label htmlFor="agree">
+          <span className="agree_txt font-content">
+            회원정보 보존 기간에 대해 동의합니다.
+          </span>
+          <span className="agree_btn"></span>
+        </label>
+        <input type="checkbox" name="agree" id="agree" onChange={onCheck} />
+      </div>
+      <div className="footer_btn">
+        <button>탈퇴하기</button>
       </div>
     </div>
   );

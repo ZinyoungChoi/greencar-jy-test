@@ -1,11 +1,13 @@
-import React from "react";
+import {useEffect} from "react";
 
 const AgreePage = (props) => {
-    const PageName = '약관 상세';
-    console.log(props)
+    const pageName = '약관 상세';
+    useEffect(()=>{
+      props.onPageName(pageName);
+    })
   return (
-    <div className="contents_wrap">
-      <p>
+    <div className="container terms_wrap">
+      <p className="font-content">
         CMS약관 관리 연동 약관 상세 내용 출력 Lorem ipsum dolor sit amet
         consectetur adipisicing elit. Eaque dicta officia, fugiat repellendus
         ullam tempore dolores hic. Animi labore aliquam debitis necessitatibus,
