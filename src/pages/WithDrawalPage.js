@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 
 const WithDrawalPage = (props) => {
   const pageName = "탈퇴하기";
+  const headerUi = {
+    goback : false,
+    closeAll : true,
+  }
   useEffect(() => {
     props.onPageName(pageName);
-  });
+  },[]);
+  useEffect(() => {
+    props.onHeaderUi(headerUi);
+  },[]);
   const [check, setCheck] = useState(false);
   const onCheck = (e) => {
     if(check !== true) {

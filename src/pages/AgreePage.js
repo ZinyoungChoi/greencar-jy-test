@@ -2,9 +2,16 @@ import {useEffect} from "react";
 
 const AgreePage = (props) => {
     const pageName = '약관 상세';
+    const headerUi = {
+      goback: false,
+      closeAll : true,
+    };
     useEffect(()=>{
       props.onPageName(pageName);
-    })
+    },[])
+    useEffect(()=>{
+      props.onHeaderUi(headerUi);
+    },[])
   return (
     <div className="container terms_wrap">
       <p className="font-content">
